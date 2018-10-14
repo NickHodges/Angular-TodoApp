@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { AllTasksComponent } from './all-tasks/all-tasks.component';
 import { AddTodoComponent } from './add-todo/add-todo.component';
+import { routes } from './app.routes';
 
 
 @NgModule({
