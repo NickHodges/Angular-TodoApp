@@ -3,16 +3,15 @@ import { Todo } from './todo';
 
 @Injectable()
 export class TodoDataService {
-
   todos: Todo[] = [
-    { id: 1, title: 'Learn Angular', complete: true, editMode: false },
-    { id: 2, title: 'Play with Vue', complete: false, editMode: false },
-    { id: 3, title: 'Master React', complete: false, editMode: false },
+    { id: 1, title: 'Learn TypeScript', complete: true, editMode: false },
+    { id: 2, title: 'Play with Angular', complete: false, editMode: false },
+    { id: 3, title: 'Build To Do App', complete: false, editMode: false }
   ];
 
   lastId = this.todos.length;
 
-  constructor() { }
+  constructor() {}
 
   // Create/Post todo
   addTodo(todo: Todo): TodoDataService {
@@ -25,8 +24,7 @@ export class TodoDataService {
 
   // Delete todo
   deleteTodoById(id: number): TodoDataService {
-    this.todos = this.todos
-      .filter(todo => todo.id !== id);
+    this.todos = this.todos.filter(todo => todo.id !== id);
     return this;
   }
 
@@ -37,9 +35,7 @@ export class TodoDataService {
 
   // Read/Get single todo
   getTodoById(id: number): Todo {
-    return this.todos
-      .filter(todo => todo.id === id)
-      .pop();
+    return this.todos.filter(todo => todo.id === id).pop();
   }
 
   // Update/Put todo
@@ -69,5 +65,4 @@ export class TodoDataService {
   incompletedTasks() {
     return this.todos.filter(todo => todo.complete !== true);
   }
-
 }
