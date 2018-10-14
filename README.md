@@ -1,10 +1,6 @@
 # Todo App
 
-This Todo App is build with Angular 5, [Angular CLI](https://github.com/angular/angular-cli) and Bootstrap CSS framework. The code is inspired by [Angular Todo App](https://github.com/sitepoint-editors/angular-todo-app). 
-
-# Demo
-
-Check the [demo here](https://imandb.github.io/Angular-TodoApp/)</a>. 
+This Todo App is build with Angular 6, [Angular CLI](https://github.com/angular/angular-cli) and Bootstrap CSS framework. The code is inspired by [Angular Todo App](https://github.com/ImanDB/Angular-TodoApp).
 
 ## Development server
 
