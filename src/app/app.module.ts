@@ -11,6 +11,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { AllTasksComponent } from './all-tasks/all-tasks.component';
 import { AddTodoComponent } from './add-todo/add-todo.component';
 import { routes } from './app.routes';
+import { AboutComponent } from './about/about.component';
 
 
 @NgModule({
@@ -19,21 +20,13 @@ import { routes } from './app.routes';
     NavbarComponent,
     TodoListComponent,
     AllTasksComponent,
-    AddTodoComponent
+    AddTodoComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot([
-      {
-        path: '',
-        component: TodoListComponent
-      },
-      {
-        path: 'all-tasks',
-        component: AllTasksComponent
-      }
-    ])
+    RouterModule.forRoot(routes)
   ],
   providers: [
     TodoDataService
