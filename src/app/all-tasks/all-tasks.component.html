@@ -7,7 +7,8 @@
 
   <ul class="list-group">
     <li *ngFor="let todo of allTasks" class="list-group-item">
-      <span class="todo-title"><span class="badge badge-primary">{{todo.complete === true? '&#10003;':'&#x2715;'}}</span>
+      <span class="todo-title"><span class="badge badge-primary">{{todo.complete === true?
+          '&#10003;':'&#x2715;'}}</span>
         {{todo.title}}</span>
     </li>
   </ul>
