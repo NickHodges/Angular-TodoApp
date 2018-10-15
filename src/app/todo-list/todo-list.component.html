@@ -7,8 +7,8 @@
       </h2>
       <hr>
       <ul class="list-group">
-        <li *ngFor="let todo of (incompletetodos | async)" class="list-group-item">
-          <input (click)="toggleTodoComplete(todo)" type="checkbox" class="checkbox">
+        <li *ngFor="let todo of incompletetodos" class="list-group-item">
+          <input (click)="makeComplete(todo)" type="checkbox" class="checkbox">
           <span (click)="editTodo(todo)" class="todo-title">
             {{todo.title}}
             <input #editInput *ngIf="todo.editMode" [value]="todo.title" (keyup.enter)="updateTodo(todo, editInput)"
@@ -24,9 +24,9 @@
       </h2>
       <hr>
       <ul class="list-group">
-        <li *ngFor="let task of (completetodos | async)" class="list-group-item">
+        <li *ngFor="let task of completetodos" class="list-group-item">
           <span class="todo-title">{{task.title}}</span>
-          <span (click)="toggleTodoComplete(task)" class="incomplete-todo">&#x2715;</span>
+          <span (click)="makeIncomplete(task)" class="incomplete-todo">&#x2715;</span>
         </li>
       </ul>
     </div>

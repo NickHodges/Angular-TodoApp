@@ -11,20 +11,39 @@ import { Observable } from 'rxjs/Observable';
 export class TodoListComponent implements OnInit {
   constructor(private todoDataService: TodoDataService) {}
 
-  completetodos: Observable<Array<Todo>>;
-  incompletetodos: Observable<Array<Todo>>;
+  completetodos: Array<Todo>;
+  incompletetodos: Array<Todo>;
 
   onAddTodo(todo: Todo) {
     console.log('onAddTodo called');
-    this.todoDataService.addTodo(todo);
+    this.todoDataService.addTodo(todo).subscribe(val => {
+      this.incompletetodos.push(val);
+    });
   }
 
-  toggleTodoComplete(todo) {
-    this.todoDataService.toggleTodoComplete(todo);
+  makeComplete(todo) {
+    this.todoDataService.toggleTodoComplete(todo).subscribe(val => {
+    const index = this.completetodos.findIndex(todo => todo.id === val.id);
+      this.incompletetodos.splice(index, 1);
+      val.complete = false;
+      this.completetodos.push(val);
+    });
+  }
+
+  makeIncomplete(todo) {
+    this.todoDataService.toggleTodoComplete(todo).subscribe(val => {
+      const index = this.incompletetodos.findIndex(todo => todo.id === val.id);
+      this.completetodos.splice(index, 1);
+      val.complete = false;
+      this.incompletetodos.push(val);
+    });
   }
 
   removeTodo(todo) {
-    this.todoDataService.deleteTodoById(todo.id);
+    this.todoDataService.deleteTodoById(todo.id).subscribe(val => {
+      const index = this.incompletetodos.findIndex(todo => todo.id === val.id);
+      this.incompletetodos.splice(index, 1);
+    });
   }
 
   editTodo(todo: Todo) {
@@ -37,20 +56,30 @@ export class TodoListComponent implements OnInit {
     this.todoDataService.updateTodoById(todo.id, todo);
   }
 
-  allTasks(): Observable<Array<Todo>> {
-    return this.todoDataService.getAllTodos();
+  allTasks(): Array<Todo> {
+    this.completedTodos();
+    this.incompletedToDos();
+    return this.completetodos.concat(this.incompletetodos);
   }
 
-  completedTodos(): Observable<Array<Todo>> {
-    return this.todoDataService.completedTodos();
+  completedTodos() {
+    this.todoDataService
+      .completedTodos()
+      .subscribe(todos => (this.completetodos = todos));
   }
 
-  incompletedToDos(): Observable<Array<Todo>> {
-    return this.todoDataService.incompletedTodos();
+  incompletedToDos() {
+    this.todoDataService
+      .incompletedTodos()
+      .subscribe(todos => (this.incompletetodos = todos));
   }
 
   ngOnInit() {
-    this.completetodos = this.completedTodos();
-    this.incompletetodos = this.incompletedToDos();
+    this.RefreshTodos();
+  }
+
+  private RefreshTodos() {
+    this.completedTodos();
+    this.incompletedToDos();
   }
 }
