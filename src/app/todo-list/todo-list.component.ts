@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../todo';
 import { TodoDataService } from '../todo-data.service';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,11 +9,13 @@ import { TodoDataService } from '../todo-data.service';
   styleUrls: ['./todo-list.component.css']
 })
 export class TodoListComponent implements OnInit {
+  constructor(private todoDataService: TodoDataService) {}
 
-  constructor(private todoDataService: TodoDataService) {
-  }
+  completetodos: Observable<Array<Todo>>;
+  incompletetodos: Observable<Array<Todo>>;
 
   onAddTodo(todo: Todo) {
+    console.log('onAddTodo called');
     this.todoDataService.addTodo(todo);
   }
 
@@ -29,26 +32,25 @@ export class TodoListComponent implements OnInit {
   }
 
   updateTodo(todo: Todo, editInput) {
-    const newTitle = editInput.value;
-    this.todoDataService.updateTodoById(todo.id, {
-      title: newTitle
-    });
+    todo.title = editInput.value;
     todo.editMode = false;
+    this.todoDataService.updateTodoById(todo.id, todo);
   }
 
-  get allTasks() {
+  allTasks(): Observable<Array<Todo>> {
     return this.todoDataService.getAllTodos();
   }
 
-  get completedTodos() {
-    return this.todoDataService.completedTasks();
+  completedTodos(): Observable<Array<Todo>> {
+    return this.todoDataService.completedTodos();
   }
 
-  get incompletedTasks() {
-    return this.todoDataService.incompletedTasks();
+  incompletedToDos(): Observable<Array<Todo>> {
+    return this.todoDataService.incompletedTodos();
   }
 
   ngOnInit() {
+    this.completetodos = this.completedTodos();
+    this.incompletetodos = this.incompletedToDos();
   }
-
 }

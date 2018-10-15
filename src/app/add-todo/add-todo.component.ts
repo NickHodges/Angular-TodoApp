@@ -9,13 +9,15 @@ import { Todo } from '../todo';
 export class AddTodoComponent implements OnInit {
   newTodo: Todo = new Todo();
 
-  @Output() add: EventEmitter<Todo> = new EventEmitter();
+  @Output() addTodoEvent: EventEmitter<Todo> = new EventEmitter();
 
   constructor() { }
 
   addTodo() {
-    this.add.emit(this.newTodo);
+    this.addTodoEvent.emit(this.newTodo);
+    console.log('event emitted');
     this.newTodo = new Todo();
+    console.log('new todo created');
   }
 
   ngOnInit() {

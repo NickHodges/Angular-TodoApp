@@ -12,6 +12,8 @@ import { AllTasksComponent } from './all-tasks/all-tasks.component';
 import { AddTodoComponent } from './add-todo/add-todo.component';
 import { routes } from './app.routes';
 import { AboutComponent } from './about/about.component';
+import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,6 +27,8 @@ import { AboutComponent } from './about/about.component';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes)
   ],
